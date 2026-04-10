@@ -1,238 +1,213 @@
-// Inicializa cada carrossel individualmente
-document.querySelectorAll('.carousel').forEach(carousel => {
-  const images = carousel.querySelectorAll('img.carousel-img');
-  // Atualiza quais imagens estão visíveis
-  const updateImages = () => {
-    images.forEach((img, index) => {
-      img.classList.toggle('hidden', index !== parseInt(carousel.dataset.index, 10));
+// script.js – Animações avançadas com GSAP + Lenis + ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+// ========== LENIS (rolagem suave) ==========
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smoothTouch: false,
+  touchMultiplier: 2,
+  infinite: false,
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
+
+// ========== LOADER ==========
+window.addEventListener('load', () => {
+  const tl = gsap.timeline({
+    onComplete: () => {
+      document.getElementById('loader').style.display = 'none';
+    }
+  });
+  tl.to('.loader-letter', { opacity: 0, y: -20, stagger: 0.05, duration: 0.5 })
+    .to('.loader-progress', { opacity: 0, duration: 0.3 }, '-=0.2')
+    .to('#loader', { opacity: 0, duration: 0.8, ease: 'power2.inOut' });
+  
+  animateHero();
+});
+
+function animateHero() {
+  gsap.from('.hero-line', { scaleX: 0, transformOrigin: 'left', duration: 1.2, ease: 'expo.out', delay: 0.2 });
+  gsap.from('.title-line', { y: 120, opacity: 0, stagger: 0.15, duration: 1.2, ease: 'expo.out', delay: 0.3 });
+  gsap.from('.hero-subtitle', { opacity: 0, y: 20, duration: 1, ease: 'power2.out', delay: 0.6 });
+  gsap.from('.hero-scroll-indicator', { opacity: 0, x: 20, duration: 1, delay: 1 });
+}
+
+// ========== ANIMAÇÕES SCROLL ==========
+gsap.from('.about-image-wrapper', {
+  scrollTrigger: {
+    trigger: '.about',
+    start: 'top 75%',
+    toggleActions: 'play none none none'
+  },
+  opacity: 0,
+  x: -60,
+  duration: 1.2,
+  ease: 'expo.out'
+});
+
+gsap.from('.about-text .section-tag, .about-headline, .about-description, .about-stats', {
+  scrollTrigger: {
+    trigger: '.about',
+    start: 'top 75%',
+  },
+  opacity: 0,
+  y: 40,
+  stagger: 0.1,
+  duration: 1,
+  ease: 'power2.out'
+});
+
+// Cards do portfólio com revelação
+gsap.utils.toArray('.project-card').forEach((card, i) => {
+  ScrollTrigger.create({
+    trigger: card,
+    start: 'top 85%',
+    onEnter: () => card.classList.add('in-view'),
+    once: true
+  });
+  
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: 'top 85%',
+    },
+    opacity: 0,
+    y: 80,
+    duration: 1,
+    ease: 'expo.out',
+    delay: i * 0.05
+  });
+});
+
+// ========== NOVO CURSOR MINIMALISTA ==========
+const cursor = document.querySelector('.cursor');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Animação suave do cursor
+gsap.ticker.add(() => {
+  const speed = 0.15;
+  cursorX += (mouseX - cursorX) * speed;
+  cursorY += (mouseY - cursorY) * speed;
+  gsap.set(cursor, { x: cursorX, y: cursorY });
+});
+
+// Efeito hover em elementos interativos
+const interactiveElements = document.querySelectorAll('a, button, .project-card, .menu-toggle, .drawer-close, .social-link');
+interactiveElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('active');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('active');
+  });
+});
+
+// Efeito magnético para cards (opcional, mantido)
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(card, {
+      x: x * 0.05,
+      y: y * 0.05,
+      duration: 0.4,
+      ease: 'power2.out'
     });
-  };
-
-  updateImages();
-
-  carousel.querySelector('.prev').addEventListener('click', () => {
-    let index = parseInt(carousel.dataset.index, 10);
-    if (index > 0) index--;
-    carousel.dataset.index = index;
-    updateImages();
   });
-
-  carousel.querySelector('.next').addEventListener('click', () => {
-    let index = parseInt(carousel.dataset.index, 10);
-    if (index < images.length - 1) index++;
-    carousel.dataset.index = index;
-    updateImages();
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
   });
 });
 
-// Validação simples do formulário de contato
-document.querySelector('#contato-form').addEventListener('submit', function (e) {
-  const fields = document.querySelectorAll('#contato-form input, #contato-form textarea');
-  let valid = true;
-  fields.forEach(field => {
-    if (!field.value.trim()) valid = false;
-  });
-  if (!valid) {
+// ========== MENU DRAWER ==========
+const menuToggle = document.querySelector('.menu-toggle');
+const menuDrawer = document.querySelector('.menu-drawer');
+const drawerClose = document.querySelector('.drawer-close');
+const drawerLinks = document.querySelectorAll('.drawer-link');
+const drawerBackdrop = document.querySelector('.drawer-backdrop');
+
+function openMenu() {
+  menuToggle.classList.add('active');
+  menuDrawer.classList.add('active');
+  menuToggle.setAttribute('aria-expanded', 'true');
+  lenis.stop();
+}
+
+function closeMenu() {
+  menuToggle.classList.remove('active');
+  menuDrawer.classList.remove('active');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  lenis.start();
+}
+
+menuToggle.addEventListener('click', openMenu);
+drawerClose.addEventListener('click', closeMenu);
+drawerBackdrop.addEventListener('click', closeMenu);
+
+// Navegação suave ao clicar nos links
+drawerLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
     e.preventDefault();
-    alert('Por favor, preencha todos os campos.');
-  }
-});
-
-
-let tooltip = null, mouseMoveHandler;
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-  if (tooltip) return;
-  tooltip = document.createElement('div');
-  tooltip.id = 'context-tooltip';
-  tooltip.innerText = "© Copyright Luiza Mantovani 2025. Direitos reservados.";
-  tooltip.style.position = 'absolute';
-  tooltip.style.background = 'rgba(92, 92, 92, 0.67)';
-  tooltip.style.color = '#fff';
-  tooltip.style.opacity = "0.8"; // define a opacidade
-  tooltip.style.padding = '5px 8px';
-  tooltip.style.borderRadius = '4px';
-  tooltip.style.fontSize = '10px';
-  tooltip.style.pointerEvents = 'none';
-  document.body.appendChild(tooltip);
-  mouseMoveHandler = function (e) {
-    tooltip.style.left = (e.pageX + 10) + 'px';
-    tooltip.style.top = (e.pageY + 10) + 'px';
-  };
-  document.addEventListener('mousemove', mouseMoveHandler);
-  mouseMoveHandler(e);
-  setTimeout(function () {
-    if (tooltip) {
-      document.body.removeChild(tooltip);
-      tooltip = null;
-      document.removeEventListener('mousemove', mouseMoveHandler);
+    const targetId = link.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+    
+    closeMenu();
+    
+    if (targetElement) {
+      lenis.scrollTo(targetElement, {
+        offset: 0,
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      });
     }
-  }, 2000);
-});
-
-(function () {
-  const analyticsScript = document.createElement('script');
-  analyticsScript.src = '/_vercel/insights/script.js';
-  analyticsScript.defer = true;
-  document.body.appendChild(analyticsScript);
-})();
-
-
-//document.querySelector('.menu-toggle').addEventListener('click', function() {
-//   document.querySelector('.menu').classList.toggle('active');
-// });
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const toggle = document.querySelector('.menu-toggle');
-  const menu = document.querySelector('.menu');
-  toggle.addEventListener('click', function () {
-    menu.classList.toggle('active');
   });
 });
 
-// Chatbot Lu: abre/minimiza ao clicar no header
-const chat = document.getElementById('chatbot');
-const header = document.getElementById('chatbot-header');
-
-// já começa sem classe, portanto aberto
-header.addEventListener('click', () => {
-  chat.classList.toggle('minimized');
-});
-
-// envio de mensagem (mantém igual)
-document.getElementById('chat-send').addEventListener('click', sendChat);
-document.getElementById('chat-input').addEventListener('keypress', e => {
-  if (e.key === 'Enter') sendChat();
-});
-
-function sendChat() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const body = document.getElementById('chatbot-body');
-
-  // usuário
-  const um = document.createElement('div');
-  um.className = 'user-message';
-  um.textContent = text;
-  body.appendChild(um);
-
-  // resposta da Lu
-  const reply = document.createElement('div');
-  reply.className = 'bot-message';
-  reply.textContent = getLuResponse(text);
-  body.appendChild(reply);
-
-  input.value = '';
-  body.scrollTop = body.scrollHeight;
-}
-
-function getLuResponse(msg) {
-  const key = msg.toLowerCase();
-  const faq = [
-    {
-      triggers: [
-        'olá',
-        'Olá',
-        'ola',
-        'Ola',
-        'oi',
-        'Oi',
-        'Bom dia',
-        'Boa noite',
-        'bom dia',
-        'boa noite',
-      ],
-      response: 'Olá, como posso lhe ajudar?'
-    },
-    {
-      triggers: [
-        'quais serviços você oferece?',
-        'que serviços vocês oferecem?',
-        'o que vocês fazem?'
-      ],
-      response: 'Oferecemos projetos residenciais, comerciais e consultorias em arquitetura e urbanismo.'
-    },
-    {
-      triggers: [
-        'qual o prazo médio de um projeto?',
-        'quanto tempo leva um projeto?',
-        'prazo de projeto'
-      ],
-      response: 'O prazo varia conforme complexidade, mas geralmente entre 30 e 60 dias.'
-    },
-    {
-      triggers: [
-        'como posso entrar em contato?',
-        'qual o contato?',
-        'telefone ou email?'
-      ],
-      response: 'Você pode usar o formulário na seção “fale conosco” ou ligar no (54) 9 9999-9999.'
-    },
-    {
-      triggers: [
-        'vocês fazem projetos comerciais?',
-        'trabalham com comércio?'
-      ],
-      response: 'Sim, desenvolvemos projetos comerciais personalizados conforme sua necessidade.'
-    }
-  ];
-
-  // Procura a primeira entrada cujo array de triggers inclui exatamente a pergunta
-  for (const item of faq) {
-    if (item.triggers.includes(key)) {
-      return item.response;
-    }
+// Fechar com ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && menuDrawer.classList.contains('active')) {
+    closeMenu();
   }
+});
 
-  // Se não encontrou, responde padrão
-  return 'Desculpe, não entendi. Poderia reformular sua pergunta?';
-}
-
-// Ao carregar, vincula quick-buttons
-document.querySelectorAll('.quick-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const question = btn.textContent;
-    handleUserMessage(question);
+// ========== PARALLAX NAS IMAGENS DO PORTFÓLIO ==========
+gsap.utils.toArray('.project-image img').forEach(img => {
+  gsap.to(img, {
+    y: () => -img.offsetHeight * 0.15,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: img.closest('.project-card'),
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 0.5
+    }
   });
 });
 
-function handleUserMessage(text) {
-  // esconde as perguntas prontas na primeira interação
-  const quick = document.getElementById('quick-questions');
-  if (quick) quick.style.display = 'none';
-
-  const body = document.getElementById('chatbot-body');
-
-  // Mensagem do usuário
-  const um = document.createElement('div');
-  um.className = 'user-message';
-  um.textContent = text;
-  body.appendChild(um);
-
-  // Resposta da Lu
-  const reply = document.createElement('div');
-  reply.className = 'bot-message';
-  reply.textContent = getLuResponse(text);
-  body.appendChild(reply);
-
-  body.scrollTop = body.scrollHeight;
+// Conectar com Three.js
+if (typeof updateThreeOnScroll === 'function') {
+  lenis.on('scroll', ({ scroll, limit }) => {
+    updateThreeOnScroll(scroll / limit);
+  });
 }
-
-// Atualize sendChat para usar handleUserMessage
-function sendChat() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  handleUserMessage(text);
-  input.value = '';
-}
-
-// (o resto do código permanece igual)
-document.getElementById('chat-send').addEventListener('click', sendChat);
-document.getElementById('chat-input').addEventListener('keypress', e => {
-  if (e.key === 'Enter') sendChat();
-});
