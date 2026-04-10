@@ -1,185 +1,239 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Luiza Mantovani | Arquitetura</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Luiza Mantovani | Arquitetura Contemporânea</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="main">
-    <header class="site-header">
-      <img src="images/logo-luiza_semfundo.png" alt="Luiza Mantovani Arquitetura" class="logo">
-      <h1>Luiza Mantovani</h1>
-      <h3>architecture</h3>
 
-      <!-- Barra de navegação -->
-      <nav class="menu">
-        <ul>
-          <li><a href="#sobre">sobre</a></li>
-          <li><a href="#portfolio">portifólio</a></li>
-          <li><a href="#contato">fale conosco</a></li>
-        </ul>
-      </nav>
-
-
-      <section id="sobre">
-        <h2>sobre</h2>
-        <div class="container-sobre">
-          <div class="sobre-img">
-            <img src="images/foto_luiza.jpg" alt="Luiza Mantovani Arquitetura">
-          </div>
-          <div class="sobre-text">
-            <p> Luiza Mantovani é estudante de Arquitetura e Urbanismo na UPF, atualmente cursando o 5º semestre.
-              Durante
-              sua trajetória acadêmica, Luiza demonstrou grande comprometimento com a prática profissional, tendo
-              acumulado uma experiência significativa durante um estágio de 1 ano e 8 meses no programa Naduque,
-              promovido
-              pela própria UPF. Essa oportunidade permitiu que ela colocasse em prática os conhecimentos teóricos e
-              desenvolvesse habilidades essenciais para a área. Atualmente, Luiza está aprimorando ainda mais sua
-              formação
-              por meio de um estágio em um conceituado escritório de arquitetura, onde, nos últimos 6 meses, tem
-              contribuído com projetos inovadores e desenvolvido uma visão criativa e funcional para resolver desafios
-              de
-              design e urbanismo. Com uma sólida base acadêmica e experiências práticas diversificadas, ela se destaca
-              pela paixão pela arquitetura e pela busca contínua de soluções sustentáveis e bem planejadas para
-              transformar espaços e vidas.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="portfolio">
-        <h2>portifólio</h2>
-        <div class="container-projetos">
-          <div class="grid">
-            <!-- os itens do portfólio permanecem inalterados -->
-            <!-- Projeto 1 -->
-            <div class="item">
-              <div class="carousel" data-index="0">
-                <img src="images/UMUO5704.JPG" alt="Projeto 1 Imagem 1" class="carousel-img">
-                <!--<img src="images/imagem3.jpg" alt="Projeto 1 Imagem 2" class="carousel-img hidden">-->
-                <!--<img src="images/imagem4.jpg" alt="Projeto 1 Imagem 3" class="carousel-img hidden">-->
-                <button class="prev" aria-label="Imagem anterior">&#60;</button>
-                <button class="next" aria-label="Próxima imagem">&#62;</button>
-              </div>
-              <h3>Projeto residencial</h3>
-            </div>
-
-            <!-- Projeto 2 -->
-            <div class="item">
-              <div class="carousel" data-index="0">
-                <img src="images/quarto2_1.jpg" alt="Projeto 2 Imagem 1" class="carousel-img">
-                <img src="images/quarto2_2.jpg" alt="Projeto 2 Imagem 2" class="carousel-img hidden">
-                <img src="images/quarto2.jpg" alt="Projeto 2 Imagem 3" class="carousel-img hidden">
-                <button class="prev" aria-label="Imagem anterior">&#60;</button>
-                <button class="next" aria-label="Próxima imagem">&#62;</button>
-              </div>
-              <h3>Quarto</h3>
-            </div>
-
-            <!-- Projeto 3 -->
-            <div class="item">
-              <div class="carousel" data-index="0">
-                <img src="images/quarto1.jpg" alt="Projeto 3 Imagem 1" class="carousel-img">
-                <img src="images/quarto1_1.jpg" alt="Projeto 3 Imagem 2" class="carousel-img hidden">
-                <img src="images/quarto1_2.jpg" alt="Projeto 3 Imagem 3" class="carousel-img hidden">
-                <img src="images/quarto1_3.jpg" alt="Projeto 3 Imagem 4" class="carousel-img hidden">
-                <img src="images/quarto1_4.jpg" alt="Projeto 3 Imagem 5" class="carousel-img hidden">
-                <button class="prev" aria-label="Imagem anterior">&#60;</button>
-                <button class="next" aria-label="Próxima imagem">&#62;</button>
-              </div>
-              <h3>Quarto</h3>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contato">
-        <h2>fale conosco</h2>
-        <div class="container-contato">
-          <form action="https://formspree.io/f/mnnpwvae" method="POST" id="contato-form">
-            <div class="floating-label">
-              <input type="text" id="nome" name="nome" placeholder=" " required>
-              <label for="nome">nome</label>
-            </div>
-            <div class="floating-label-group">
-              <div class="floating-label">
-                <input type="email" id="email" name="email" placeholder=" " required>
-                <label for="email">email</label>
-              </div>
-              <div class="floating-label">
-                <input type="tel" id="telefone" name="telefone" placeholder=" " required>
-                <label for="telefone">telefone</label>
-              </div>
-            </div>
-            <div class="floating-label">
-              <textarea id="mensagem" name="mensagem" rows="3" placeholder=" " required></textarea>
-              <label for="mensagem">mensagem</label>
-            </div>
-            <div class="form-privacy">
-              <input type="checkbox" id="privacy-check" name="privacy-check" required>
-              <label for="privacy-check">
-                Concordo com a <a href="#" target="_blank">política de privacidade</a>.
-              </label>
-            </div>
-            <div class="form-submit">
-              <button type="submit">Enviar</button>
-            </div>
-          </form>
-        </div>
-      </section>
+<!-- LOADER  -->
+<div id="loader">
+  <div class="loader-logo">
+    <span class="loader-letter">L</span>
+    <span class="loader-letter">M</span>
   </div>
+  <div class="loader-progress"></div>
+</div>
 
-  <footer class="rodape">
-    <div class="rodape-container">
-      <div class="footer-logo">
-        <img src="images/logo-luiza_semfundo.png" alt="Logo Luiza Mantovani">
-      </div>
-      <div class="rodape-info">
-        <p>Cidade de Passo Fundo - Rio Grande do Sul</p>
-        <p>Telefone: (54) 9 9999-9999</p>
-        <p>Email: mantovanilu@hotmail.com</p>
-      </div>
-      <div class="rodape-redes">
-        <a href="https://wa.me/5545999999999" target="_blank"><img src="images/whats.png" alt="WhatsApp"></a>
-        <a href="https://facebook.com/luiza.mantovani.52" target="_blank"><img src="images/face.png" alt="Facebook"></a>
-        <a href="https://instagram.com/mantovani_luiza/" target="_blank"><img src="images/insta.png"
-            alt="Instagram"></a>
-      </div>
+<!--  CURSOR  -->
+<div class="cursor"></div>
+
+<!-- MENU SUPERIOR  -->
+<header class="nav-header">
+  <div class="nav-brand">
+    <a href="#" class="logo-link">
+      <span class="logo-primary">LUIZA MANTOVANI</span>
+      <span class="logo-secondary">ARQUITETURA</span>
+    </a>
+  </div>
+  <div class="nav-menu">
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- DRAWER - DESKTOP -->
+<div class="menu-drawer">
+  <div class="drawer-backdrop"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <span class="drawer-label">Menu</span>
+      <button class="drawer-close" aria-label="Fechar menu">✕</button>
     </div>
-    <p class="rodape-copy">&copy; Copyright Luiza Mantovani 2025. Direitos reservados.</p>
-  </footer>
-
-  <!-- Chatbot Lu -->
-  <div id="chatbot">
-    <div id="chatbot-header">Fale com a Lu</div>
-
-    <div id="chatbot-body">
-      <div class="bot-message">
-        Olá! Eu sou a Lu, sua assistente de arquitetura. Como posso ajudar?
+    <nav class="drawer-nav">
+      <ul class="drawer-list">
+        <li><a href="#home" class="drawer-link">Home</a></li>
+        <li><a href="#sobre" class="drawer-link">Sobre</a></li>
+        <li><a href="#portfolio" class="drawer-link">Portfólio</a></li>
+        <li><a href="#contato" class="drawer-link">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="drawer-footer">
+      <p class="drawer-info">Estúdio de arquitetura<br>Passo Fundo · Brasil</p>
+      <div class="drawer-social">
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">IN</a>
+        <a href="#" class="social-link">BE</a>
       </div>
-    </div>
-
-    <!-- Perguntas rápidas -->
-    <div id="quick-questions">
-      <button class="quick-btn">Quais serviços você oferece?</button>
-      <button class="quick-btn">Qual o prazo médio de um projeto?</button>
-      <button class="quick-btn">Como posso entrar em contato?</button>
-      <button class="quick-btn">Vocês fazem projetos comerciais?</button>
-    </div>
-    
-    <div id="chatbot-input">
-      <input type="text" id="chat-input" placeholder="Digite sua pergunta..." />
-      <button id="chat-send">Enviar</button>
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<!-- ESTRUTURA PRINCIPAL COM LENIS -->
+<main id="smooth-wrapper">
+  <div id="smooth-content">
+
+    <!-- HERO COM CANVAS 3D (THREE.JS) -->
+    <section id="home" class="hero">
+      <canvas id="bg-canvas"></canvas>
+      <div class="hero-content">
+        <div class="hero-line"></div>
+        <h1 class="hero-title">
+          <span class="title-line">Arquitetura que</span>
+          <span class="title-line">transforma espaços</span>
+        </h1>
+        <p class="hero-subtitle">Estúdio de design contemporâneo — Paso Fundo · 202*</p>
+      </div>
+      <div class="hero-scroll-indicator">
+        <span>Role para explorar</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="about editorial">
+      <div class="about-grid">
+        <div class="about-image-wrapper">
+          <div class="image-mask">
+            <img src="assets/luiza.jpg" alt="Luiza Mantovani" class="about-img">
+          </div>
+          <div class="image-caption">Fundadora · Arquiteta</div>
+        </div>
+        <div class="about-text">
+          <h2 class="section-tag">Sobre</h2>
+          <p class="about-headline">Luiza Mantovani lidera um escritório onde a precisão técnica encontra a poesia do espaço.</p>
+          <p class="about-description">Com uma abordagem que une estética atemporal e funcionalidade radical, cada projeto é uma investigação sobre luz, materialidade e vivência. Do residencial ao corporativo, criamos atmosferas que elevam o cotidiano.</p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-number">3+</span>
+              <span class="stat-label">anos de experiência</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">15+</span>
+              <span class="stat-label">projetos entregues</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section id="portfolio" class="portfolio">
+      <div class="portfolio-header">
+        <h2 class="section-tag">Trabalhos selecionados</h2>
+        <p class="portfolio-intro">Cada projeto é uma resposta única ao contexto, programa e desejo do cliente.</p>
+      </div>
+
+      <div class="project-grid">
+        <!-- CARD 1 -->
+        <div class="project-card" data-cursor="Ver projeto">
+          <div class="project-image">
+            <img src="assets/projeto1.jpg" alt="Dormitório Contemporâneo">
+            <div class="image-overlay"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-category">Dormitório</div>
+            <h3>Dormitório Contemporâneo</h3>
+            <p>Design minimalista com iluminação natural e integração de ambientes.</p>
+            <div class="project-stats">
+              <span>120m²</span>
+              <span>2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="project-card" data-cursor="Ver projeto">
+          <div class="project-image">
+            <img src="assets/projeto2.jpg" alt="Dormitório Luxo">
+            <div class="image-overlay"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-category">Dormitório</div>
+            <h3>Dormitório Luxo</h3>
+            <p>Materiais nobres, composição moderna e paleta sofisticada.</p>
+            <div class="project-stats">
+              <span>80m²</span>
+              <span>2024</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 DESTACADO -->
+        <div class="project-card highlight" data-cursor="Ver projeto">
+          <div class="project-image">
+            <img src="assets/projeto3.jpg" alt="Suite Master">
+            <div class="image-overlay"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-category">Interiores</div>
+            <h3>Suite Master</h3>
+            <p>Elegância e conforto integrados em um refúgio particular.</p>
+            <div class="project-stats">
+              <span>45m²</span>
+              <span>2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 (adicional para grid dinâmico) -->
+        <div class="project-card" data-cursor="Ver projeto">
+          <div class="project-image">
+            <img src="assets/projeto4.jpg" alt="Dormitório Industrial">
+            <div class="image-overlay"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-category">Dormitório</div>
+            <h3>Dormitório Industrial</h3>
+            <p>Design robusto e funcional, com elementos industriais e materiais nobres.</p>
+            <div class="project-stats">
+              <span>200m²</span>
+              <span>2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO / CHAMADA FINAL -->
+    <section id="contato" class="contact">
+      <div class="contact-container">
+        <h2 class="contact-title">Vamos criar algo <br><i>extraordinário</i> juntos.</h2>
+        <div class="contact-info">
+          <a href="mailto:contato@luizamantovani.com" class="contact-email">contato@luizamantovani.com</a>
+          <span class="contact-divider">—</span>
+          <a href="#" class="contact-link">Instagram</a>
+          <a href="#" class="contact-link">WhatsApp</a>
+        </div>
+      </div>
+      <footer class="site-footer">
+        <span>© 2026 Luiza Mantovani Arquitetura</span>
+        <span>Todos os direitos reservados</span>
+      </footer>
+    </section>
+
+  </div><!-- #smooth-content -->
+</main>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<script src="script.js"></script>
+<script src="three-scene.js"></script>
+
+<!-- Fallback para imagens -->
+<script>
+  (function() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      img.onerror = function() {
+        this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'%3E%3Crect width=\'600\' height=\'400\' fill=\'%231a1a1a\'/%3E%3Cpath d=\'M0 0h600v400H0z\' fill=\'%232a2a2a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Inter, sans-serif\' font-size=\'18\' fill=\'%23c9a86a\'%3ELuiza Mantovani%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Inter, sans-serif\' font-size=\'14\' fill=\'%23888888\'%3EArquitetura%3C/text%3E%3C/svg%3E';
+        this.style.objectFit = 'cover';
+      };
+      if (img.complete && img.naturalHeight === 0) img.onerror();
+    });
+  })();
+</script>
+
 </body>
-
 </html>
